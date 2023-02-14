@@ -1,0 +1,15 @@
+#풀이 아이디어 : 에라토스테네스의 체
+
+def solution(n):
+    #n의 크기가 큰 경우 : 에라토스테네스의 체 활용 
+    
+    a = [False,False,]+[True]*(n-1) #0,1은 소수가 아니므로 False 
+    primes=[] #소수 담을 공간 
+    
+    for i in range(2,n+1):
+        if a[i] == True:
+            primes.append(i)
+            for j in range(2*i,n+1,i): #i를 이미 담았기 때문에 i의 배수부터 시작 (2*i)
+                a[j] = False # ex) n==10이고 i==2라면, 2로 나눠지는 모든 수를 False로 변경하기 
+            
+    return len(primes)
