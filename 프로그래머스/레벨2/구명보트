@@ -1,0 +1,35 @@
+"""
+문제유형: 그리디
+문제: https://school.programmers.co.kr/learn/courses/30/lessons/42885
+풀이
+collections에서 deque를 import하여 deque로 해결함, 처음엔 list로 풀었으나 시간복잡도가 커 시간복잡도가 O(1)인 deque로 바꿈
+    1. 입력받은 리스트 p를 오름차순으로 정렬
+    2. dq=deque(p)로 p를 deque에 담기
+    3. if 덱의 최소값 + 최대값이 limit보다 크다면, 최대값 혼자 보트에 태우고 보트 개수 +1
+    4. else,둘 다 보트에 태우고 보트 개수 +1, 최소값,최대값 삭제함 
+    5. 만약 사람이 홀수 명이라 1명이 남는다면, 보트에 태우고 보트 개수 +1
+    keypoint : 효율성 검사에서 통과를 못한다면, 시간복잡도가 어떤지 살펴보고 시간복잡도가 커서 통과를 못 하는 것이라면 deque를 활용해보자.
+"""
+
+from collections import deque
+
+def solution(p, limit):
+    p.sort() #오름차순 정렬
+    dq = deque(p) #deque
+    cnt=0 #구명보트의 개수
+    a=[]
+    
+    while len(dq) > 1:
+        if dq[0] + dq[-1] > limit: #최소값 + 최대값이 limit보다 크면
+            cnt+=1 #최대값 혼자 보트 태움 
+            dq.pop() #최대값 삭제
+                
+        else: #최소값 + 최대값 합이 limit와 같거나 이하라면 
+            cnt+=1 #둘 다 보트에 태움 
+            dq.popleft() # 최소값 삭제
+            dq.pop() #최대값 삭제
+            
+    if len(dq) == 1: #만약 사람이 홀수 명이라 1명이 남는다면,
+        cnt+=1 # 1명 보트에 태움 
+        
+    return cnt
