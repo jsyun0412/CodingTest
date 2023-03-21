@@ -1,0 +1,39 @@
+"""
+int형 버전
+https://wook-2124.tistory.com/222 님의 코드를 참고해서 수정했다. 훨씬 간단해졌다.
+"""
+
+n=int(input()) # 26
+target = n 
+cnt = 0 #사이클 수 
+
+while True:
+    a = target // 10  # 2
+    b = target % 10 # 6
+    add = (a+b) % 10 # 더한 값의 일의 자리만 가져옴 
+    target = (b*10) + add  # b에 10을 곱해 add와 더하면 새로운 수가 만들어짐 
+
+    cnt = cnt + 1
+
+    if(target == n):
+        break
+print(cnt)
+
+"""
+str형 버전
+while True를 1로 바꿨다.
+"""
+n=int(input()) #26
+num = n
+cnt = 0
+
+while 1:
+    if len(num) == 1: # len(num) 이 한 자리수가 될 때, num 앞에 0 추가함 
+        num = "0" + num
+    add = str(int(num[0])) + int(num[1]) # 파이썬은 input()으로 어떤 것을 받든지 다 str()로 입력 후 list()로 저장 됨. 
+                                        #이 특징을 이용해 26이 num=[2,6]으로 저장 되었으니 int(num[0])인 2와 int(num[1])인 6을 int로 먼저 더해줘서 8을 만들고 이것을 다시 문자열 str로 저장
+    num = num[-1] + add[-1] # 6 + 8 => 새로운 수 :68
+    cnt += 1
+    if num == n:
+        print(cnt)
+        break
