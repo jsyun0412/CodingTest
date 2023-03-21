@@ -1,0 +1,49 @@
+"""
+처음에 내가 작성하다가 뭔가 잘못 건드려서 무한 루프에 빠져버렸다 
+그래서 무한 루프를 고쳐보려고 시도하다 아예 처음부터 시작하는게 좋을 것 같아 다시 코드를 작성했다. 
+아래 코드는 무한루프에 빠진 코드이다.
+"""
+from collections import deque
+n=int(input())
+t = 0
+a=[]
+cnt = 1
+add = 0
+x=0
+y=0
+tmp=0
+if n < 10:
+    a.append(0)
+    a.append(n)
+else:
+    x=n//10
+    y=n%10
+    a.append(int(x))
+    a.append(int(y))
+    
+
+dq = deque(a)
+print(dq)
+add = dq[0]+dq[1]
+
+while t!=n:
+    t = add
+    if n>10:
+        add = int(dq[0]+dq[1])
+        dq.popleft()
+
+        if add >= 10:
+            tmp = add % 10
+            dq.append(tmp)
+            print(add,tmp,dq)
+        else:
+            dq.append(add)
+            print(add,tmp,dq)
+    else:
+        add = int(dq[0]+dq[1])
+        dq.append(0)
+
+        
+    cnt+=1
+
+print(dq,cnt)
