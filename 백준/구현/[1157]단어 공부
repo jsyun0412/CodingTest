@@ -1,0 +1,12 @@
+word = input().lower() #소문자로만 입력받기 #mississipi
+word_list = list(set(word)) # set()을 이용해 자료형의 중복을 제거후 리스트로 묶음 ['m','i','s','p']
+cnt = [] # 가장 많이 사용된 알파벳을 알기 위해 cnt변수를 []으로 초기화 
+
+for i in word_list: # i = m i s p 
+    count = word.count(i)
+    cnt.append(count) # cnt = [4,4,1,1]
+
+if cnt.count(max(cnt)) >= 2: #max(cnt)가 2개 이상인 경우 ? 출력하기 
+    print("?")
+else:
+    print(word_list[(cnt.index(max(cnt)))].upper()) #word_list에서 가장 많이 사용된 알파벳의 인덱스를 구해서 대문자로 바꿔준다
