@@ -1,0 +1,50 @@
+"""
+이 코드에서 핵심은 모듈 Counter의 클래스를 사용하여, collections목록에 있는 각 요소의 빈도를 계산한 다음,
+메서드를 사용하여 most_common()빈도의 내림차순으로 정렬된 요소 및 해당 빈도를 포함하는 튜플 목록을 반환하는 것 이다. 
+
+c = Counter(a).most_common() #먼저 빈도의 내림차순으로 정렬된 요소, 해당 빈도를 포함하는 튜플 목록을 반환하는 c를 정의 
+m = [] # 빈 리스트를 초기화 
+for i in c: # 튜플 리스트 c를 반복문 돌린다. 각 튜플에 대해서 현재 요소의 빈도가 "i[1]" 가장 빈번한 요소의 빈도 "c[0][1]" 와 같은지 확인한다. 
+    if i[1] == c[0][1]:
+        m.append(i[0]) #같다면 해당 요소가 가장 빈도가 높은 요소 이므로 m에 append
+    else: 
+        break
+if len(m) == 1: # 가장 빈도가 높은 요소가 1개라면 
+    z = m[0] # 그 요소를 출력 
+else: # 가장 빈도가 높은 요소가 2개 이상이라면 
+    m.sort() # 정렬 후 
+    z = m[1] # 두번째로 작은 요소 할당 
+    
+전반적으로 이 부분은 입력 목록에서 가장 빈번한 요소를 찾고, 그 중에서 두 번째로 작은 요소(또는 하나만 있는 경우 가장 빈번한 요소)를 반환한다. 
+    
+"""
+from collections import Counter
+n=int(input())
+a=[]
+cnt=[]
+for i in range(n):
+    a.append(int(input()))
+a.sort()
+
+x = (int(round(sum(a)/n)))
+y = int(a[n//2])
+w = (max(a)-min(a))
+
+c = Counter(a).most_common() # 최빈값 구하기 위해 Counter와 most_common 이용 
+m = []
+
+for i in c:
+    if i[1] == c[0][1]:
+        m.append(i[0])
+    else:
+        break
+if len(m) == 1:
+    z = m[0]
+else:
+    m.sort()
+    z = m[1]
+
+print(x) #산술평균
+print(y) #중앙값
+print(z) #최빈값
+print(w) #범위
