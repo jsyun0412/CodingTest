@@ -1,0 +1,37 @@
+"""
+The code uses the Counter class from the collections module to count the frequency of each element in the list, 
+and then uses the most_common() method to return a list of tuples containing the elements and their frequencies, 
+sorted in descending order of frequency. The code then iterates over this list and appends the elements with the highest frequency to a list m. 
+Finally, if m has only one element, z is assigned that element. Otherwise, m is sorted in ascending order, and the second smallest element is assigned to z.
+"""
+from collections import Counter  # Importing the Counter class from the collections module
+n=int(input())  # Taking an integer input from the user and storing it in variable n
+a=[]  # Creating an empty list a
+cnt=[]  # Creating an empty list cnt (which is not used later in the code)
+for i in range(n):  # Looping n times
+    a.append(int(input()))  # Taking an integer input from the user and appending it to list a
+a.sort()  # Sorting list a in ascending order
+
+x = (int(round(sum(a)/n)))  # Calculating the mean of list a and rounding it to the nearest integer
+y = int(a[n//2])  # Calculating the median of list a
+w = (max(a)-min(a))  # Calculating the range of list a
+
+c = Counter(a).most_common()  # Counting the frequency of each element in list a and returning a list of tuples sorted in descending order of frequency
+
+m = []  # Creating an empty list m
+for i in c:  # Looping over the list of tuples
+    if i[1] == c[0][1]:  # If the frequency of the current element is equal to the highest frequency in the list of tuples
+        m.append(i[0])  # Append the current element to list m
+    else:  # If the frequency of the current element is not equal to the highest frequency in the list of tuples
+        break  # Break out of the loop
+
+if len(m) == 1:  # If there is only one element in list m
+    z = m[0]  # Assign that element to z
+else:  # If there are multiple elements in list m
+    m.sort()  # Sort list m in ascending order
+    z = m[1]  # Assign the second smallest element to z
+
+print(x)  # Print the mean of list a
+print(y)  # Print the median of list a
+print(z)  # Print the mode of list a
+print(w)  # Print the range of list a
