@@ -1,0 +1,58 @@
+"""
+문제 유형: dfs
+문제 링크: https://www.acmicpc.net/problem/4963
+풀이 : 
+1. 주변 지점 중에서 값이 1 이면서 아직 방문하지 않았다면 방문 처리 함 
+2. 방문한 지점에서 상,하,좌,우를 살펴보며 방문을 진행하는 과정을 반복하면 연결된 모든 지점을 방문할 수 있다. 
+3. 상,하,좌,우 및 대각선도 재귀적으로 호출해줘야 한다.
+4. 현재 위치에서 dfs를 수행한 후 값이 True라면 섬의 개수 + 1 해준다.
+
+이 문제에서 중요한 점은 
+1. 대각선도 호출할 것 
+2. 범위에서 n,m 잘 생각하고 주의해서 할 것 ! index error 발생함 
+"""
+import sys
+sys.setrecursionlimit(10**4) #재귀 스택 확장
+
+def dfs(x,y):
+    #주어진 범위 벗어나면 즉시 종료
+    if x < 0 or x >= m or y < 0 or y >= n:
+        return False
+    
+    #현재 노드를 아직 방문하지 않았다면
+    if graph[x][y] == 1:
+        #해당 노드 방문 처리
+        graph[x][y] = 0
+
+        #상,하,좌,우 및 대각선도 재귀적으로 호출
+        dfs(x-1,y)
+        dfs(x,y-1)
+        dfs(x+1,y)
+        dfs(x,y+1)
+        dfs(x-1,y+1)
+        dfs(x+1,y-1)
+        dfs(x-1,y-1)
+        dfs(x+1,y+1)
+        return True
+    return False
+
+
+while True:
+    n,m=map(int,input().split()) #가로,세로
+
+    if n==0 and m==0:
+        break
+    
+    a=[]
+    result = 0
+    graph=[]
+
+    for i in range(m):
+        graph.append(list(map(int,input().split()))) #지도 입력 받기
+    
+    for i in range(m):
+        for j in range(n):
+            #현재 위치에서 dfs 수행
+            if dfs(i,j) == True:
+                result+=1              
+    print(result)
