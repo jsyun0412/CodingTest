@@ -1,0 +1,61 @@
+#최고 높이까지 오면 모두 잠기기 때문에 최고 높이 -1 까지만 계산한다.
+#최고 높이가 9라면, 0부터 8까지 다 돌고 안전한 영역의 최대 개수를 구한다.
+
+from collections import deque
+
+n = int(input())
+graph = []
+max_height = 0
+
+for _ in range(n):
+    graph.append(list(map(int, input().split())))
+    # 두 개의 인수가 함수에 전달되면 max()두 인수를 비교하여 더 큰 인수를 반환
+    max_height = max(max_height, max(graph[-1])) #graph[-1] : 리스트에서 가장 최근에 추가된 행을 나타냄
+
+#2차원 리스트에서 이동할 수 있는 네 가지 방향(위,아래,왼,오) 정의   
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+    
+def bfs(x, y, r): # x:행, y:열, r:높이 
+    queue = deque()
+
+    #시작 노드 추가 
+    queue.append((x, y))
+
+    #visited 리스트로 어떤 노드를 방문했는지 추적 
+    #해당 노드 방문 처리
+    visited[x][y] = 1
+    
+    #queue에 노드가 다 사라질 때 까지 반복
+    #루프를 반복할 때 마다 리스트에서 가장 왼쪽 원소를 제거하고, 해당 원소의 상,하,좌,우를 모두 확인함
+    while queue:
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+        
+            #범위를 벗어나면 다음 노드로 건너뜀 
+            if nx<0 or nx>=n or ny<0 or ny>=n:
+                continue
+            
+            #이미 이전에 방문한 적이 있거나, 높이가 현재 임계값보다 작으면 이 노드를 건너 뛰고 다음 노드로 이동
+            if visited[nx][ny] == 1 or graph[nx][ny] <= r:
+                continue
+
+            #원소가 범위 내에 있고, 아직 방문하지 않았으며, 높이가 임계값보다 크다면 queue에 추가되고, 방문한걸로 표시    
+            queue.append((nx, ny))
+            visited[nx][ny] = 1
+
+result = 0
+for i in range(max_height): #최고 높이가 9라면, 0~8까지 순차적으로 탐색 
+    count = 0
+    visited = [[0]*n for _ in range(n)]
+    for j in range(n):
+        for k in range(n):
+            if graph[j][k] > i and visited[j][k] == 0: #여기가 일정 높이 이상의 노드만 걸러내는 부분! 
+                bfs(j, k, i)
+                count += 1
+    result = max(result, count)
+    
+print(result)
