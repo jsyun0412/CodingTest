@@ -1,0 +1,59 @@
+"""
+레벨 : 백준 골드 5
+"""
+import sys
+sys.setrecursionlimit(10**6) #파이썬 재귀 깊이 지정 
+
+n=int(input())
+
+graph=[]
+visited = [[0] * n for _ in range(n)]
+sum1 = 0
+sum2 = 0
+
+dx = [0,0,-1,1]
+dy = [-1,1,0,0]
+
+for i in range(n):
+    graph.append(list(input()))
+
+def dfs(x,y,color):
+    #시작 노드 방문 처리
+    visited[x][y] = 1
+
+    #상,하,좌,우 탐색
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+
+        #범위 내에 있고 방문한 적이 없다면 
+        if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] == 0:
+            #위 조건을 모두 만족하면서 탐색중인 색상과 같은 색상이면 탐색한다.
+
+            if graph[nx][ny] == color:
+                dfs(nx,ny,color)
+
+for color in ['R','G','B']: #빨->초->파 순서로 확인
+    for i in range(n):
+        for j in range(n):
+            if visited[i][j] == 0 and graph[i][j] == color:
+                dfs(i,j,color)
+                sum1 += 1
+
+
+#적록색약일 경우를 위해서 기존 그래프에서 초록색 -> 빨간색으로 변경 
+for i in range(n):
+    for j in range(n):
+        if graph[i][j] == 'G':
+            graph[i][j] = 'R'
+
+#방문 정보 초기화 
+visited = [[0]*n for i in range(n)]
+
+for color in ['R','B']: #빨,파만 확인 : 적록색약인 경우
+    for i in range(n):
+        for j in range(n):
+            if visited[i][j] == 0 and graph[i][j] == color:
+                dfs(i,j,color)
+                sum2 += 1
+print(sum1,sum2)
