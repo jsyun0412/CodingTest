@@ -1,0 +1,39 @@
+from collections import deque
+
+t = int(input())
+
+def bfs():
+    dx = [-1,1,2,2,1,-1,-2,-2] #시계 방향 
+    dy = [2,2,1,-1,-2,-2,-1,1]
+
+    q = deque()
+    q.append((start_x,start_y))
+    while q:
+        x,y = q.popleft()
+
+        #타겟 좌표가 나오면 그 값에서 -1한 값을 리턴해준다(1부터 시작했으므로)
+        if x == target_x and y == target_y:
+            return graph[x][y] -1
+        
+        #좌표가 총 8방향이므로, 이동 반복문을 8번 반복하여 이동
+        for i in range(8):
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+            #범위 내에 있으면서 아직 방문하지 않았다면 
+            if 0 <= nx < n and 0 <= ny < n and graph[nx][ny] == 0: 
+                graph[nx][ny] = graph[x][y] + 1 # 이동할 때마다 이전 값에 +1한 값을 저장
+                q.append((nx,ny))
+
+
+for i in range(t):
+    n=int(input())
+    start_x, start_y = map(int,input().split())
+    target_x, target_y = map(int,input().split())
+    graph = [[0]*n for _ in range(n)]
+    graph[start_x][start_y] = 1
+    print(bfs())
+
+
+
+
