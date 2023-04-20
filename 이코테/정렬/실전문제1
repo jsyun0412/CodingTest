@@ -1,3 +1,4 @@
+#위에서 아래로
 t=int(input())
 a=[]
 for i in range(t):
