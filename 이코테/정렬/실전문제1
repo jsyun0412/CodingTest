@@ -1,0 +1,14 @@
+#성적이 낮은 순서대로 출력하기
+n=int(input())
+
+a=[]
+for i in range(n):
+    data = input().split()
+    # 이름은 문자열 그대로, 점수는 정수형으로 변환해서 저장
+    a.append((data[0], int(data[1])))
+
+#key를 이용하여, 점수를 기준으로 정렬 
+result = sorted(a, key=lambda student: student[1])
+
+for student in a:
+    print(student[0], end=' ')
