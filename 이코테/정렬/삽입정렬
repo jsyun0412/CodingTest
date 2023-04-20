@@ -1,0 +1,11 @@
+array = [7,5,9,0,3,1,6,2,4,8]
+
+#매번 자신의 왼쪽의 원소와 비교하며, 자신이 왼쪽 원소보다 작으면 서로 바꿔주기 
+for i in range(1,len(array)):
+    for j in range(i,0,-1): # index i 부터 1까지 1씩 감소하면서 반복 
+        print(j)
+        if array[j] < array[j-1]: #한 칸씩 왼쪽으로 이동
+            array[j], array[j-1] = array[j-1], array[j]
+        else:
+            break
+print(array)
