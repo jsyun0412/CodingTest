@@ -1,0 +1,23 @@
+n,m=map(int,input().split())
+array = [int(input()) for _ in range(n)]
+
+start = max(array)
+end = sum(array)
+right = end
+while start <= end:
+    mid = (start+end)//2
+    cnt = 1
+    tmp = mid
+    for i in range(n):
+        if tmp < array[i]:
+            cnt += 1
+            tmp = mid
+        tmp = tmp - array[i]
+
+    if cnt > m :
+        start = mid + 1 # cnt 감소
+    else:
+        right = mid
+        end = mid - 1 # cnt 증가
+        
+print(right)
