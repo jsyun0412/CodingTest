@@ -1,0 +1,10 @@
+while True:
+    n, m = map(int, input().split())
+    if n == 0 and m == 0:
+        break
+
+    a = set(int(input()) for _ in range(n))
+    b = set(int(input()) for _ in range(m))
+
+    cnt = len(a & b)  # 교집합 연산을 이용하여 두 집합의 공통 요소 개수를 구합니다.
+    print(cnt)
