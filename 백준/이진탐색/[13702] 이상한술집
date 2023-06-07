@@ -1,0 +1,21 @@
+n, m = map(int, input().split())
+array = [int(input()) for _ in range(n)]
+
+start = 1  # 최소한의 술의 양은 1이므로 start를 1로 설정합니다.
+end = max(array)  # 최대 술의 양을 구합니다.
+
+result = 0
+while start <= end:
+    total = 0
+    mid = (start + end) // 2
+
+    for i in array:
+        total += i // mid
+
+    if total >= m:
+        result = mid
+        start = mid + 1
+    else:
+        end = mid - 1
+
+print(result)
