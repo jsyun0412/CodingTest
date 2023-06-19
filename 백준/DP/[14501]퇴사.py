@@ -15,7 +15,7 @@ for i in range(n-1, -1, -1):
     time = t[i] + i
 
     # 상담이 기간 안에 끝나는 경우 
-    if time < n:
+    if time <= n:
         # 점화식에 맞게 현재까지의 최고 이익 계산 
         dp[i] = max(p[i] + dp[time], max_value)
         max_value = dp[i]
