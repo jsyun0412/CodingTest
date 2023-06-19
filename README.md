@@ -1,3 +1,4 @@
-# CodingTest
-프로그래머스 
-백준
+# Coding Test 문제 풀이 
+- 백준
+- 프로그래머스
+
