@@ -1,6 +1,6 @@
 # [unrated] 조건에 부합하는 중고거래 상태 조회하기 - 164672 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/164672) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/164672?language=oracle) 
 
 ### 성능 요약
 
